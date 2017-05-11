@@ -1,35 +1,35 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
-namespace UITestingProject
+namespace UserInterfaceTesting
 {
-    [TestClass]
+    [TestFixture]
     public class SeleniumTesting
     {
         static IWebDriver driverChrome;
         static IAlert alert;
 
-        [AssemblyInitialize]
-        public static void setup(TestContext context)
+        [OneTimeSetUp]
+        public static void Setup()
         {
             driverChrome = new ChromeDriver();
         }
 
-        [AssemblyCleanup]
-        public static void cleanup()
+        [OneTimeTearDown]
+        public static void Cleanup()
         {
-            driverChrome.Close();
-            driverChrome.Quit();
+//            driverChrome.Close();
+//            driverChrome.Quit();
         }
 
-        [TestMethod]
-        public void TestMethod1()
+        [Test]
+        public void SeleniumTestGoogle()
         {
             driverChrome.Navigate().GoToUrl("http://www.google.com");
             driverChrome.FindElement(By.Id("lst-ib")).SendKeys("Selenium");
-//            driverChrome.Close();
         }
 
         private static Boolean AlertIsPresent()
@@ -54,8 +54,8 @@ namespace UITestingProject
             driverChrome.FindElement(By.LinkText("Become")).Click();
         }
 
-        [TestMethod]
-        public void SeleniumTestMethod1()
+        [Test]
+        public void SeleniumTestBossTest()
         {
             driverChrome.Navigate().GoToUrl("http://bosstest.careerbuilder.com/axiom/");
             if (AlertIsPresent() &&
@@ -70,7 +70,6 @@ namespace UITestingProject
             driverChrome.FindElement(By.Id("tdMenuBarItemAccount")).Click();
             //            driverChrome.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             driverChrome.FindElement(By.LinkText("Account Search")).Click();
-//            driverChrome.Close();
         }
     }
 }
