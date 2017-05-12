@@ -34,10 +34,21 @@ namespace UserInterfaceTesting
         }
 
         [Test]
+        public void SeleniumTestAmazon()
+        {
+            Console.Out.WriteLine("Navigating to Amazon");
+            driverChrome.Navigate().GoToUrl("http://www.amazon.com");
+            Console.Out.WriteLine("Searching keyword");
+            driverChrome.FindElement(By.Id("twotabsearchtextbox")).SendKeys(_searchstring);
+            //            driverChrome.FindElement(By.Id("uh-search-button")).Click();
+        }
+
+        [Test]
         public void SeleniumTestGoogle()
         {
             Console.Out.WriteLine("Navigating to Google");
             driverChrome.Navigate().GoToUrl("http://www.google.com");
+            Console.Out.WriteLine("Searching keyword");
             driverChrome.FindElement(By.Id("lst-ib")).SendKeys(_searchstring);
 //            driverChrome.FindElement(By.Id("_fZ1")).Click();
         }
@@ -47,6 +58,7 @@ namespace UserInterfaceTesting
         {
             Console.Out.WriteLine("Navigating to Yahoo");
             driverChrome.Navigate().GoToUrl("http://www.yahoo.com");
+            Console.Out.WriteLine("Searching keyword");
             driverChrome.FindElement(By.Id("uh-search-box")).SendKeys(_searchstring);
 //            driverChrome.FindElement(By.Id("uh-search-button")).Click();
         }
@@ -54,10 +66,20 @@ namespace UserInterfaceTesting
         [Test]
         public void SeleniumTestBossTest()
         {
-            Console.WriteLine("Navigating to URL");
 
+            driverChrome.Navigate().GoToUrl("http://www.google.com");
+
+            Console.WriteLine("Navigating to URL http://bosstest.careerbuilder.com/axiom/");
             driverChrome.Navigate().GoToUrl("http://bosstest.careerbuilder.com/axiom/");
+            Console.WriteLine(driverChrome.PageSource);
 //            TakeScreenshot("SeleniumTestingScreenshot0.jpg");
+
+            Console.WriteLine("Navigating to URL https://bosstest.careerbuilder.com/axiom/");
+            driverChrome.Navigate().GoToUrl("https://bosstest.careerbuilder.com/axiom/");
+            Console.WriteLine(driverChrome.PageSource);
+
+            Console.WriteLine("Navigating to URL bosstest.careerbuilder.com/axiom/");
+            driverChrome.Navigate().GoToUrl("bosstest.careerbuilder.com/axiom/");
             Console.WriteLine(driverChrome.PageSource);
 
             if (AlertIsPresent() && alert.Text.Contains("http://bosstest.careerbuilder.com"))
