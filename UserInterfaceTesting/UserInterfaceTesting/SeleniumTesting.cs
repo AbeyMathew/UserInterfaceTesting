@@ -11,17 +11,17 @@ namespace UserInterfaceTesting
         static IWebDriver driverChrome;
         static IAlert alert;
 
-        [OneTimeSetUp]
+        [SetUp]
         public static void Setup()
         {
             driverChrome = new ChromeDriver();
         }
 
-        [OneTimeTearDown]
+        [TearDown]
         public static void Cleanup()
         {
-//            driverChrome.Close();
-//            driverChrome.Quit();
+            driverChrome.Close();
+            driverChrome.Quit();
         }
 
         [Test]
