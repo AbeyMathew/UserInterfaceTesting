@@ -1,4 +1,5 @@
 ﻿using System;
+using NUnit.Core;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -10,28 +11,59 @@ namespace UserInterfaceTesting
     {
         static IWebDriver driverChrome;
         static IAlert alert;
+        readonly string _searchstring = "Selenium" + Keys.Enter;
 
         [SetUp]
         public static void Setup()
         {
             driverChrome = new ChromeDriver();
+            driverChrome.Manage().Window.Maximize();
         }
 
         [TearDown]
         public static void Cleanup()
         {
-            driverChrome.Close();
-            driverChrome.Quit();
+//            driverChrome.Close();
+//            driverChrome.Quit();
         }
 
         [Test]
         public void SeleniumTestGoogle()
         {
             driverChrome.Navigate().GoToUrl("http://www.google.com");
-            driverChrome.FindElement(By.Id("lst-ib")).SendKeys("Selenium");
+            driverChrome.FindElement(By.Id("lst-ib")).SendKeys(_searchstring);
+//            driverChrome.FindElement(By.Id("_fZ1")).Click();
         }
 
-        private static Boolean AlertIsPresent()
+        [Test]
+        public void SeleniumTestYahoo()
+        {
+            driverChrome.Navigate().GoToUrl("http://www.yahoo.com");
+            driverChrome.FindElement(By.Id("uh-search-box")).SendKeys(_searchstring);
+//            driverChrome.FindElement(By.Id("uh-search-button")).Click();
+        }
+
+        [Test]
+        public void SeleniumTestBossTest()
+        {
+            driverChrome.Navigate().GoToUrl("http://bosstest.careerbuilder.com/axiom/");
+            TakeScreenshot("SeleniumTestingScreenshot0.jpg");
+            if (AlertIsPresent() &&
+                alert.Text.Equals("http://bosstest.careerbuilder.com is requesting your username and password."))
+            {
+                string credentials = "corpappqausr" + Keys.Tab + "CACruise1";
+                alert.SendKeys(credentials);
+                //    alert.SetAuthenticationCredentials("corpappqausr", "CACruise1");
+                alert.Accept();
+            }
+            TakeScreenshot("SeleniumTestingScreenshot1.jpg");
+            BecomeUser("lbrown");
+            driverChrome.FindElement(By.Id("tdMenuBarItemAccount")).Click();
+            //            driverChrome.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            driverChrome.FindElement(By.LinkText("Account Search")).Click();
+        }
+
+        private static bool AlertIsPresent()
         {
             try
             {
@@ -55,22 +87,18 @@ namespace UserInterfaceTesting
             driverChrome.FindElement(By.LinkText("Become")).Click();
         }
 
-        [Test]
-        public void SeleniumTestBossTest()
+        public void TakeScreenshot(string screenshotname)
         {
-            driverChrome.Navigate().GoToUrl("http://bosstest.careerbuilder.com/axiom/");
-            if (AlertIsPresent() &&
-                alert.Text.Equals("http://bosstest.careerbuilder.com is requesting your username and password."))
+            try
             {
-                string credentials = "corpappqausr" + Keys.Tab + "CACruise1";
-                alert.SendKeys(credentials);
-                //    alert.SetAuthenticationCredentials("corpappqausr", "CACruise1");
-                alert.Accept();
+                Screenshot ss = ((ITakesScreenshot)driverChrome).GetScreenshot();
+                ss.SaveAsFile(@"D:\" + screenshotname, ScreenshotImageFormat.Jpeg);
             }
-            BecomeUser("lbrown");
-            driverChrome.FindElement(By.Id("tdMenuBarItemAccount")).Click();
-            //            driverChrome.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            driverChrome.FindElement(By.LinkText("Account Search")).Click();
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw;
+            }
         }
     }
 }
