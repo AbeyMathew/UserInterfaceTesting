@@ -18,8 +18,8 @@ namespace UserInterfaceTesting
         [SetUp]
         public static void Setup()
         {
-            new ServiceMessageFormatter().FormatMessage("Starting Chrome Driver");
-            Trace.WriteLine("Starting Chrome Driver");
+//            new ServiceMessageFormatter().FormatMessage("Starting Chrome Driver");
+//            Trace.WriteLine("Starting Chrome Driver");
             Console.WriteLine("Starting Chrome Driver");
 
             driverChrome = new ChromeDriver();
@@ -29,7 +29,7 @@ namespace UserInterfaceTesting
         [TearDown]
         public static void Cleanup()
         {
-            Trace.WriteLine("Closing Chrome Driver");
+//            Trace.WriteLine("Closing Chrome Driver");
             Console.WriteLine("Closing Chrome Driver");
 
             driverChrome.Close();
@@ -39,7 +39,8 @@ namespace UserInterfaceTesting
         [Test]
         public void SeleniumTestGoogle()
         {
-            new ServiceMessageFormatter().FormatMessage("Navigating to Google");
+            //            new ServiceMessageFormatter().FormatMessage("Navigating to Google");
+            Console.Out.WriteLine("Navigating to Google");
             driverChrome.Navigate().GoToUrl("http://www.google.com");
             driverChrome.FindElement(By.Id("lst-ib")).SendKeys(_searchstring);
 //            driverChrome.FindElement(By.Id("_fZ1")).Click();
@@ -57,7 +58,7 @@ namespace UserInterfaceTesting
         [Test]
         public void SeleniumTestBossTest()
         {
-            Trace.WriteLine("Navigating to URL");
+//            Trace.WriteLine("Navigating to URL");
             Console.WriteLine("Navigating to URL");
 
             driverChrome.Navigate().GoToUrl("http://bosstest.careerbuilder.com/axiom/");
@@ -67,6 +68,7 @@ namespace UserInterfaceTesting
 //                alert.Text.Equals("http://bosstest.careerbuilder.com is requesting your username and password."))
             {
                 string credentials = "corpappqausr" + Keys.Tab + "CACruise1";
+                Console.WriteLine("Entering credentials for Alert window");
                 alert.SendKeys(credentials);
                 //    alert.SetAuthenticationCredentials("corpappqausr", "CACruise1");
                 alert.Accept();
@@ -74,7 +76,7 @@ namespace UserInterfaceTesting
 
 //            TakeScreenshot("SeleniumTestingScreenshot1.jpg");
             BecomeUser("lbrown");
-            Trace.WriteLine("Navigating to Account Search");
+//            Trace.WriteLine("Navigating to Account Search");
             Console.WriteLine("Navigating to Account Search");
             driverChrome.FindElement(By.Id("tdMenuBarItemAccount")).Click();
             //            driverChrome.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
@@ -83,22 +85,24 @@ namespace UserInterfaceTesting
 
         private static bool AlertIsPresent()
         {
-            Trace.WriteLine("Checking for Alert window");
+            //            Trace.WriteLine("Checking for Alert window");
+            Console.WriteLine("Checking for Alert window");
             try
             {
                 alert = driverChrome.SwitchTo().Alert();
-
+                Console.WriteLine("Alert window present");
                 return true;
             }   // try 
             catch (NoAlertPresentException)
             {
+                Console.WriteLine("Alert window not present");
                 return false;
             }
         }
 
         private static void BecomeUser(string loginID)
         {
-            Trace.WriteLine("Becoming Latoya Brown");
+            //Trace.WriteLine("Becoming Latoya Brown");
             Console.WriteLine("Becoming Latoya Brown");
             string currentuser = "Currently seen as user " + driverChrome.FindElement(By.XPath("//*[contains(text(),'" + "Welcome" + "')]")).Text;
             Trace.WriteLine(currentuser); 
@@ -110,7 +114,7 @@ namespace UserInterfaceTesting
 
         public void TakeScreenshot(string screenshotname)
         {
-            Trace.WriteLine("Taking screenshot");
+            //Trace.WriteLine("Taking screenshot");
             Console.WriteLine("Taking screenshot");
             try
             {
