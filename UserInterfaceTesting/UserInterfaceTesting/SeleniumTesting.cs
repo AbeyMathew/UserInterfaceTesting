@@ -24,8 +24,8 @@ namespace UserInterfaceTesting
         [TearDown]
         public static void Cleanup()
         {
-//            driverChrome.Close();
-//            driverChrome.Quit();
+            driverChrome.Close();
+            driverChrome.Quit();
         }
 
         [Test]
