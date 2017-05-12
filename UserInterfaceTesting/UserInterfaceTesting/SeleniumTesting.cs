@@ -47,7 +47,7 @@ namespace UserInterfaceTesting
         public void SeleniumTestGoogle()
         {
             Console.Out.WriteLine("Navigating to Google");
-            driverChrome.Navigate().GoToUrl("http://www.google.com");
+            driverChrome.Navigate().GoToUrl("https://www.google.com/#q=selenium+testing");
             Console.Out.WriteLine("Searching keyword");
             driverChrome.FindElement(By.Id("lst-ib")).SendKeys(_searchstring);
 //            driverChrome.FindElement(By.Id("_fZ1")).Click();
