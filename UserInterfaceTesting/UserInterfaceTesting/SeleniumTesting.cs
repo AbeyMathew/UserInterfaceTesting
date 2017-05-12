@@ -18,8 +18,6 @@ namespace UserInterfaceTesting
         [SetUp]
         public static void Setup()
         {
-//            new ServiceMessageFormatter().FormatMessage("Starting Chrome Driver");
-//            Trace.WriteLine("Starting Chrome Driver");
             Console.WriteLine("Starting Chrome Driver");
 
             driverChrome = new ChromeDriver();
@@ -29,7 +27,6 @@ namespace UserInterfaceTesting
         [TearDown]
         public static void Cleanup()
         {
-//            Trace.WriteLine("Closing Chrome Driver");
             Console.WriteLine("Closing Chrome Driver");
 
             driverChrome.Close();
@@ -39,7 +36,6 @@ namespace UserInterfaceTesting
         [Test]
         public void SeleniumTestGoogle()
         {
-            //            new ServiceMessageFormatter().FormatMessage("Navigating to Google");
             Console.Out.WriteLine("Navigating to Google");
             driverChrome.Navigate().GoToUrl("http://www.google.com");
             driverChrome.FindElement(By.Id("lst-ib")).SendKeys(_searchstring);
@@ -58,11 +54,11 @@ namespace UserInterfaceTesting
         [Test]
         public void SeleniumTestBossTest()
         {
-//            Trace.WriteLine("Navigating to URL");
             Console.WriteLine("Navigating to URL");
 
             driverChrome.Navigate().GoToUrl("http://bosstest.careerbuilder.com/axiom/");
 //            TakeScreenshot("SeleniumTestingScreenshot0.jpg");
+            Console.WriteLine(driverChrome.PageSource);
 
             if (AlertIsPresent() && alert.Text.Contains("http://bosstest.careerbuilder.com"))
 //                alert.Text.Equals("http://bosstest.careerbuilder.com is requesting your username and password."))
@@ -76,7 +72,7 @@ namespace UserInterfaceTesting
 
 //            TakeScreenshot("SeleniumTestingScreenshot1.jpg");
             BecomeUser("lbrown");
-//            Trace.WriteLine("Navigating to Account Search");
+
             Console.WriteLine("Navigating to Account Search");
             driverChrome.FindElement(By.Id("tdMenuBarItemAccount")).Click();
             //            driverChrome.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
@@ -85,7 +81,6 @@ namespace UserInterfaceTesting
 
         private static bool AlertIsPresent()
         {
-            //            Trace.WriteLine("Checking for Alert window");
             Console.WriteLine("Checking for Alert window");
             try
             {
@@ -102,7 +97,6 @@ namespace UserInterfaceTesting
 
         private static void BecomeUser(string loginID)
         {
-            //Trace.WriteLine("Becoming Latoya Brown");
             Console.WriteLine("Becoming Latoya Brown");
             string currentuser = "Currently seen as user " + driverChrome.FindElement(By.XPath("//*[contains(text(),'" + "Welcome" + "')]")).Text;
             Trace.WriteLine(currentuser); 
@@ -114,7 +108,6 @@ namespace UserInterfaceTesting
 
         public void TakeScreenshot(string screenshotname)
         {
-            //Trace.WriteLine("Taking screenshot");
             Console.WriteLine("Taking screenshot");
             try
             {
