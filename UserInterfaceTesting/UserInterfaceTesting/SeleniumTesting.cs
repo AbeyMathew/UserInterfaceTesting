@@ -47,6 +47,8 @@ namespace UserInterfaceTesting
 
         private static void BecomeUser(string loginID)
         {
+            string currentuser = "Currently seen as user " + driverChrome.FindElement(By.XPath("//*[contains(text(),'" + "Welcome" + "')]")).Text;
+            Console.WriteLine(currentuser); 
             driverChrome.FindElement(By.LinkText(" Become")).Click();
             driverChrome.FindElement(By.Id("CBEmployee_HHRepID")).SendKeys(loginID);
             driverChrome.FindElement(By.Id("btnAction")).Click();
