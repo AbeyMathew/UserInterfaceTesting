@@ -64,23 +64,12 @@ namespace UserInterfaceTesting
         }
 
         [Test]
-        public void SeleniumTestBossTest()
+        public void SeleniumTestBossTest1()
         {
-
-            driverChrome.Navigate().GoToUrl("http://www.google.com");
-
             Console.WriteLine("Navigating to URL http://bosstest.careerbuilder.com/axiom/");
             driverChrome.Navigate().GoToUrl("http://bosstest.careerbuilder.com/axiom/");
             Console.WriteLine(driverChrome.PageSource);
 //            TakeScreenshot("SeleniumTestingScreenshot0.jpg");
-
-            Console.WriteLine("Navigating to URL https://bosstest.careerbuilder.com/axiom/");
-            driverChrome.Navigate().GoToUrl("https://bosstest.careerbuilder.com/axiom/");
-            Console.WriteLine(driverChrome.PageSource);
-
-            Console.WriteLine("Navigating to URL bosstest.careerbuilder.com/axiom/");
-            driverChrome.Navigate().GoToUrl("bosstest.careerbuilder.com/axiom/");
-            Console.WriteLine(driverChrome.PageSource);
 
             if (AlertIsPresent() && alert.Text.Contains("http://bosstest.careerbuilder.com"))
 //                alert.Text.Equals("http://bosstest.careerbuilder.com is requesting your username and password."))
@@ -99,6 +88,22 @@ namespace UserInterfaceTesting
             driverChrome.FindElement(By.Id("tdMenuBarItemAccount")).Click();
             //            driverChrome.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             driverChrome.FindElement(By.LinkText("Account Search")).Click();
+        }
+
+        [Test]
+        public void SeleniumTestBostTest2()
+        {
+            Console.WriteLine("Navigating to URL https://bosstest.careerbuilder.com/axiom/");
+            driverChrome.Navigate().GoToUrl("https://bosstest.careerbuilder.com/axiom/");
+            Console.WriteLine(driverChrome.PageSource);
+        }
+
+        [Test]
+        public void SeleniumTestBostTest3()
+        {
+            Console.WriteLine("Navigating to URL bosstest.careerbuilder.com/axiom/");
+            driverChrome.Navigate().GoToUrl("bosstest.careerbuilder.com/axiom/");
+            Console.WriteLine(driverChrome.PageSource);
         }
 
         private static bool AlertIsPresent()
