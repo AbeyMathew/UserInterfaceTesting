@@ -48,7 +48,8 @@ namespace UserInterfaceTesting
         public void SeleniumTestBossTest()
         {
             driverChrome.Navigate().GoToUrl("http://bosstest.careerbuilder.com/axiom/");
-//            TakeScreenshot("SeleniumTestingScreenshot0.jpg");
+            TakeScreenshot("SeleniumTestingScreenshot0.jpg");
+
             if (AlertIsPresent() &&
                 alert.Text.Equals("http://bosstest.careerbuilder.com is requesting your username and password."))
             {
@@ -57,7 +58,8 @@ namespace UserInterfaceTesting
                 //    alert.SetAuthenticationCredentials("corpappqausr", "CACruise1");
                 alert.Accept();
             }
-//            TakeScreenshot("SeleniumTestingScreenshot1.jpg");
+
+            TakeScreenshot("SeleniumTestingScreenshot1.jpg");
             BecomeUser("lbrown");
             driverChrome.FindElement(By.Id("tdMenuBarItemAccount")).Click();
             //            driverChrome.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
@@ -93,7 +95,7 @@ namespace UserInterfaceTesting
             try
             {
                 Screenshot ss = ((ITakesScreenshot)driverChrome).GetScreenshot();
-                ss.SaveAsFile(@"D:\" + screenshotname, ScreenshotImageFormat.Jpeg);
+                ss.SaveAsFile(@"D:\AbeysSnapshots\" + screenshotname, ScreenshotImageFormat.Jpeg);
             }
             catch (Exception e)
             {
