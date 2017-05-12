@@ -59,6 +59,9 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="TeamCity.ServiceMessages, Version=3.0.7.47, Culture=neutral, PublicKeyToken=620ded7f0cf61090, processorArchitecture=MSIL">
+      <HintPath>..\packages\TeamCity.ServiceMessages.3.0.7\lib\net46\TeamCity.ServiceMessages.dll</HintPath>
+    </Reference>
     <Reference Include="WebDriver, Version=3.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Selenium.WebDriver.3.3.0\lib\net40\WebDriver.dll</HintPath>
     </Reference>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using JetBrains.TeamCity.ServiceMessages.Write;
 using NUnit.Core;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -17,6 +18,7 @@ namespace UserInterfaceTesting
         [SetUp]
         public static void Setup()
         {
+            new ServiceMessageFormatter().FormatMessage("Starting Chrome Driver");
             Trace.WriteLine("Starting Chrome Driver");
             Console.WriteLine("Starting Chrome Driver");
 
@@ -37,6 +39,7 @@ namespace UserInterfaceTesting
         [Test]
         public void SeleniumTestGoogle()
         {
+            new ServiceMessageFormatter().FormatMessage("Navigating to Google");
             driverChrome.Navigate().GoToUrl("http://www.google.com");
             driverChrome.FindElement(By.Id("lst-ib")).SendKeys(_searchstring);
 //            driverChrome.FindElement(By.Id("_fZ1")).Click();
@@ -45,6 +48,7 @@ namespace UserInterfaceTesting
         [Test]
         public void SeleniumTestYahoo()
         {
+            Console.Out.WriteLine("Navigating to Yahoo");
             driverChrome.Navigate().GoToUrl("http://www.yahoo.com");
             driverChrome.FindElement(By.Id("uh-search-box")).SendKeys(_searchstring);
 //            driverChrome.FindElement(By.Id("uh-search-button")).Click();
