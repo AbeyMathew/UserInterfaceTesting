@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading;
 using JetBrains.TeamCity.ServiceMessages.Write;
 using NUnit.Core;
 using NUnit.Framework;
@@ -47,7 +48,7 @@ namespace UserInterfaceTesting
         public void SeleniumTestGoogle()
         {
             Console.Out.WriteLine("Navigating to Google");
-            driverChrome.Navigate().GoToUrl("https://www.google.com/#q=selenium+testing");
+            driverChrome.Navigate().GoToUrl("https://www.google.com");
             Console.Out.WriteLine("Searching keyword");
             driverChrome.FindElement(By.Id("lst-ib")).SendKeys(_searchstring);
 //            driverChrome.FindElement(By.Id("_fZ1")).Click();
@@ -66,13 +67,13 @@ namespace UserInterfaceTesting
         [Test]
         public void SeleniumTestBossTest1()
         {
-            Console.WriteLine("Navigating to URL http://bosstest.careerbuilder.com/axiom/");
+            Console.WriteLine("Navigating to URL http://bosstest.careerbuilder.com/axiom/ at " + DateTime.Now.ToLongTimeString());
             driverChrome.Navigate().GoToUrl("http://bosstest.careerbuilder.com/axiom/");
             Console.WriteLine(driverChrome.PageSource);
 //            TakeScreenshot("SeleniumTestingScreenshot0.jpg");
 
-            if (AlertIsPresent() && alert.Text.Contains("http://bosstest.careerbuilder.com"))
-//                alert.Text.Equals("http://bosstest.careerbuilder.com is requesting your username and password."))
+            if (AlertIsPresent()) //&& alert.Text.Contains("http://bosstest.careerbuilder.com")
+                                  //                alert.Text.Equals("http://bosstest.careerbuilder.com is requesting your username and password."))
             {
                 string credentials = "corpappqausr" + Keys.Tab + "CACruise1";
                 Console.WriteLine("Entering credentials for Alert window");
@@ -98,28 +99,27 @@ namespace UserInterfaceTesting
             Console.WriteLine(driverChrome.PageSource);
         }
 
-        [Test]
-        public void SeleniumTestBostTest3()
-        {
-            Console.WriteLine("Navigating to URL bosstest.careerbuilder.com/axiom/");
-            driverChrome.Navigate().GoToUrl("bosstest.careerbuilder.com/axiom/");
-            Console.WriteLine(driverChrome.PageSource);
-        }
-
         private static bool AlertIsPresent()
         {
-            Console.WriteLine("Checking for Alert window");
-            try
+            Thread.Sleep(1000);
+            const int maxAttempt = 2;
+            for (int i = maxAttempt; i > 0; i = i - 1)
             {
-                alert = driverChrome.SwitchTo().Alert();
-                Console.WriteLine("Alert window present");
-                return true;
-            }   // try 
-            catch (NoAlertPresentException)
-            {
-                Console.WriteLine("Alert window not present");
-                return false;
+                Console.WriteLine("Checking for Alert window at " + DateTime.Now.ToLongTimeString());
+                try
+                {
+                    alert = driverChrome.SwitchTo().Alert();
+                    Console.WriteLine("Alert window present");
+                    return true;
+                } // try 
+                catch (NoAlertPresentException)
+                {
+                    Console.WriteLine("Alert window not present");
+                    Thread.Sleep(1000);
+//                    return false;
+                }
             }
+            return false;
         }
 
         private static void BecomeUser(string loginID)
