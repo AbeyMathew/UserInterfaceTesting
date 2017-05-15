@@ -154,6 +154,8 @@ namespace UserInterfaceTesting
             }
             Console.WriteLine(_webDriver.PageSource);
 
+            Thread.Sleep(2000);
+            Console.WriteLine(_webDriver.PageSource);
             //            TakeScreenshot("SeleniumTestingScreenshot1.jpg");
             BecomeUser("lbrown");
 
