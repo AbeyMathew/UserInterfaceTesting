@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using NUnit.Core;
 using NUnit.Framework;
@@ -141,28 +142,44 @@ namespace UserInterfaceTesting
             _webDriver = new InternetExplorerDriver();
             Console.WriteLine("Navigating to URL http://bosstest.careerbuilder.com/axiom/ at " + DateTime.Now.ToLongTimeString());
             _webDriver.Navigate().GoToUrl("http://bosstest.careerbuilder.com/axiom/");
-            //            TakeScreenshot("SeleniumTestingScreenshot0.jpg");
-
-            if (AlertIsPresent()) //&& alert.Text.Contains("http://bosstest.careerbuilder.com")
-                //                alert.Text.Equals("http://bosstest.careerbuilder.com is requesting your username and password."))
+            try
             {
-                string credentials = "corpappqausr" + Keys.Tab + "CACruise1";
-                Console.WriteLine("Entering credentials for Alert window");
-                _alert.SendKeys(credentials);
-                //    alert.SetAuthenticationCredentials("corpappqausr", "CACruise1");
-                _alert.Accept();
+                //            TakeScreenshot("SeleniumTestingScreenshot0.jpg");
+
+                if (AlertIsPresent()) //&& alert.Text.Contains("http://bosstest.careerbuilder.com")
+                    //                alert.Text.Equals("http://bosstest.careerbuilder.com is requesting your username and password."))
+                {
+                    string credentials = "corpappqausr" + Keys.Tab + "CACruise1";
+                    Console.WriteLine("Entering credentials for Alert window");
+                    _alert.SendKeys(credentials);
+                    //    alert.SetAuthenticationCredentials("corpappqausr", "CACruise1");
+                    _alert.Accept();
+                }
+                Console.WriteLine(_webDriver.PageSource);
+
+                Thread.Sleep(9000);
+                //            TakeScreenshot("SeleniumTestingScreenshot1.jpg");
+                BecomeUser("lbrown");
+
+                Console.WriteLine("Navigating to Account Search");
+                _webDriver.FindElement(By.Id("tdMenuBarItemAccount")).Click();
+                //            driverChrome.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+                _webDriver.FindElement(By.LinkText("Account Search")).Click();
             }
-            Console.WriteLine(_webDriver.PageSource);
-
-            Thread.Sleep(9000);
-            Console.WriteLine(_webDriver.PageSource);
-            //            TakeScreenshot("SeleniumTestingScreenshot1.jpg");
-            BecomeUser("lbrown");
-
-            Console.WriteLine("Navigating to Account Search");
-            _webDriver.FindElement(By.Id("tdMenuBarItemAccount")).Click();
-            //            driverChrome.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            _webDriver.FindElement(By.LinkText("Account Search")).Click();
+            catch (UnhandledAlertException unhandledAlertException)
+            {
+                Console.WriteLine(unhandledAlertException);
+                if (AlertIsPresent()) //&& alert.Text.Contains("http://bosstest.careerbuilder.com")
+                    //                alert.Text.Equals("http://bosstest.careerbuilder.com is requesting your username and password."))
+                {
+                    string credentials = "corpappqausr" + Keys.Tab + "CACruise1";
+                    Console.WriteLine("Entering credentials for Alert window");
+                    _alert.SendKeys(credentials);
+                    //    alert.SetAuthenticationCredentials("corpappqausr", "CACruise1");
+                    _alert.Accept();
+                }
+                Console.WriteLine(_webDriver.PageSource);
+            }
         }
 
         private static bool AlertIsPresent()
