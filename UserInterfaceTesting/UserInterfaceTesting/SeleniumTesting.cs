@@ -1,75 +1,78 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading;
-using JetBrains.TeamCity.ServiceMessages.Write;
 using NUnit.Core;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.IE;
 
 namespace UserInterfaceTesting
 {
     [TestFixture]
     public class SeleniumTesting
     {
-        private static IWebDriver driverChrome;
-        private static IAlert alert;
+        private static IWebDriver _webDriver;
+        private static IAlert _alert;
         private readonly string _searchstring = "Selenium" + Keys.Enter;
 
         [SetUp]
         public static void Setup()
         {
-            Console.WriteLine("Starting Chrome Driver");
+            Console.WriteLine("Starting Driver");
 
-            driverChrome = new ChromeDriver();
-            driverChrome.Manage().Window.Maximize();
+//            _webDriver.Manage().Window.Maximize();
         }
 
         [TearDown]
         public static void Cleanup()
         {
-            Console.WriteLine("Closing Chrome Driver");
+            Console.WriteLine("Closing Driver");
 
-            driverChrome.Close();
-            driverChrome.Quit();
+            _webDriver.Close();
+            _webDriver.Quit();
         }
 
         [Test]
-        public void SeleniumTestAmazon()
+        public void SeleniumTestAmazoninChrome()
         {
+            _webDriver = new ChromeDriver();
             Console.Out.WriteLine("Navigating to Amazon");
-            driverChrome.Navigate().GoToUrl("http://www.amazon.com");
+            _webDriver.Navigate().GoToUrl("http://www.amazon.com");
             Console.Out.WriteLine("Searching keyword");
-            driverChrome.FindElement(By.Id("twotabsearchtextbox")).SendKeys(_searchstring);
+            _webDriver.FindElement(By.Id("twotabsearchtextbox")).SendKeys(_searchstring);
             //            driverChrome.FindElement(By.Id("uh-search-button")).Click();
         }
 
         [Test]
-        public void SeleniumTestGoogle()
+        public void SeleniumTestGoogleinChrome()
         {
+            _webDriver = new ChromeDriver();
             Console.Out.WriteLine("Navigating to Google");
-            driverChrome.Navigate().GoToUrl("https://www.google.com");
+            _webDriver.Navigate().GoToUrl("https://www.google.com");
             Console.Out.WriteLine("Searching keyword");
-            driverChrome.FindElement(By.Id("lst-ib")).SendKeys(_searchstring);
+            _webDriver.FindElement(By.Id("lst-ib")).SendKeys(_searchstring);
 //            driverChrome.FindElement(By.Id("_fZ1")).Click();
         }
 
         [Test]
-        public void SeleniumTestYahoo()
+        public void SeleniumTestYahooinChrome()
         {
+            _webDriver = new ChromeDriver();
             Console.Out.WriteLine("Navigating to Yahoo");
-            driverChrome.Navigate().GoToUrl("http://www.yahoo.com");
+            _webDriver.Navigate().GoToUrl("http://www.yahoo.com");
             Console.Out.WriteLine("Searching keyword");
-            driverChrome.FindElement(By.Id("uh-search-box")).SendKeys(_searchstring);
+            _webDriver.FindElement(By.Id("uh-search-box")).SendKeys(_searchstring);
 //            driverChrome.FindElement(By.Id("uh-search-button")).Click();
         }
 
         [Test]
-        public void SeleniumTestBossTest1()
+        public void SeleniumTestBossTestinChrome()
         {
+            _webDriver = new ChromeDriver();
             Console.WriteLine("Navigating to URL http://bosstest.careerbuilder.com/axiom/ at " + DateTime.Now.ToLongTimeString());
-            driverChrome.Navigate().GoToUrl("http://bosstest.careerbuilder.com/axiom/");
-            Console.WriteLine(driverChrome.PageSource);
+            _webDriver.Navigate().GoToUrl("http://bosstest.careerbuilder.com/axiom/");
+            Console.WriteLine(_webDriver.PageSource);
 //            TakeScreenshot("SeleniumTestingScreenshot0.jpg");
 
             if (AlertIsPresent()) //&& alert.Text.Contains("http://bosstest.careerbuilder.com")
@@ -77,38 +80,99 @@ namespace UserInterfaceTesting
             {
                 string credentials = "corpappqausr" + Keys.Tab + "CACruise1";
                 Console.WriteLine("Entering credentials for Alert window");
-                alert.SendKeys(credentials);
+                _alert.SendKeys(credentials);
                 //    alert.SetAuthenticationCredentials("corpappqausr", "CACruise1");
-                alert.Accept();
+                _alert.Accept();
             }
 
 //            TakeScreenshot("SeleniumTestingScreenshot1.jpg");
             BecomeUser("lbrown");
 
             Console.WriteLine("Navigating to Account Search");
-            driverChrome.FindElement(By.Id("tdMenuBarItemAccount")).Click();
+            _webDriver.FindElement(By.Id("tdMenuBarItemAccount")).Click();
             //            driverChrome.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            driverChrome.FindElement(By.LinkText("Account Search")).Click();
+            _webDriver.FindElement(By.LinkText("Account Search")).Click();
+        }
+
+        //        [Test]
+        //        public void SeleniumTestBostTest2()
+        //        {
+        //            Console.WriteLine("Navigating to URL https://bosstest.careerbuilder.com/axiom/");
+        //            _webDriver.Navigate().GoToUrl("https://bosstest.careerbuilder.com/axiom/");
+        //            Console.WriteLine(_webDriver.PageSource);
+        //        }
+
+        [Test]
+        public void SeleniumTestAmazoninInternetExplorer()
+        {
+            _webDriver = new InternetExplorerDriver();
+            Console.Out.WriteLine("Navigating to Amazon");
+            _webDriver.Navigate().GoToUrl("http://www.amazon.com");
+            Console.Out.WriteLine("Searching keyword");
+            _webDriver.FindElement(By.Id("twotabsearchtextbox")).SendKeys(_searchstring);
+            //            driverChrome.FindElement(By.Id("uh-search-button")).Click();
         }
 
         [Test]
-        public void SeleniumTestBostTest2()
+        public void SeleniumTestGoogleinInternetExplorer()
         {
-            Console.WriteLine("Navigating to URL https://bosstest.careerbuilder.com/axiom/");
-            driverChrome.Navigate().GoToUrl("https://bosstest.careerbuilder.com/axiom/");
-            Console.WriteLine(driverChrome.PageSource);
+            _webDriver = new InternetExplorerDriver();
+            Console.Out.WriteLine("Navigating to Google");
+            _webDriver.Navigate().GoToUrl("https://www.google.com");
+            Console.Out.WriteLine("Searching keyword");
+            _webDriver.FindElement(By.Id("lst-ib")).SendKeys(_searchstring);
+            //            driverChrome.FindElement(By.Id("_fZ1")).Click();
+        }
+
+        [Test]
+        public void SeleniumTestYahooinInternetExplorer()
+        {
+            _webDriver = new InternetExplorerDriver();
+            Console.Out.WriteLine("Navigating to Yahoo");
+            _webDriver.Navigate().GoToUrl("http://www.yahoo.com");
+            Console.Out.WriteLine("Searching keyword");
+            _webDriver.FindElement(By.Id("uh-search-box")).SendKeys(_searchstring);
+            //            driverChrome.FindElement(By.Id("uh-search-button")).Click();
+        }
+
+        [Test]
+        public void SeleniumTestBossTestinInternetExplorer()
+        {
+            _webDriver = new InternetExplorerDriver();
+            Console.WriteLine("Navigating to URL http://bosstest.careerbuilder.com/axiom/ at " + DateTime.Now.ToLongTimeString());
+            _webDriver.Navigate().GoToUrl("http://bosstest.careerbuilder.com/axiom/");
+            Console.WriteLine(_webDriver.PageSource);
+            //            TakeScreenshot("SeleniumTestingScreenshot0.jpg");
+
+            if (AlertIsPresent()) //&& alert.Text.Contains("http://bosstest.careerbuilder.com")
+                //                alert.Text.Equals("http://bosstest.careerbuilder.com is requesting your username and password."))
+            {
+                string credentials = "corpappqausr" + Keys.Tab + "CACruise1";
+                Console.WriteLine("Entering credentials for Alert window");
+                _alert.SendKeys(credentials);
+                //    alert.SetAuthenticationCredentials("corpappqausr", "CACruise1");
+                _alert.Accept();
+            }
+
+            //            TakeScreenshot("SeleniumTestingScreenshot1.jpg");
+            BecomeUser("lbrown");
+
+            Console.WriteLine("Navigating to Account Search");
+            _webDriver.FindElement(By.Id("tdMenuBarItemAccount")).Click();
+            //            driverChrome.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            _webDriver.FindElement(By.LinkText("Account Search")).Click();
         }
 
         private static bool AlertIsPresent()
         {
             Thread.Sleep(1000);
-            const int maxAttempt = 2;
+            const int maxAttempt = 3;
             for (int i = maxAttempt; i > 0; i = i - 1)
             {
                 Console.WriteLine("Checking for Alert window at " + DateTime.Now.ToLongTimeString());
                 try
                 {
-                    alert = driverChrome.SwitchTo().Alert();
+                    _alert = _webDriver.SwitchTo().Alert();
                     Console.WriteLine("Alert window present");
                     return true;
                 } // try 
@@ -125,12 +189,12 @@ namespace UserInterfaceTesting
         private static void BecomeUser(string loginID)
         {
             Console.WriteLine("Becoming Latoya Brown");
-            string currentuser = "Currently seen as user " + driverChrome.FindElement(By.XPath("//*[contains(text(),'" + "Welcome" + "')]")).Text;
+            string currentuser = "Currently seen as user " + _webDriver.FindElement(By.XPath("//*[contains(text(),'" + "Welcome" + "')]")).Text;
             Trace.WriteLine(currentuser); 
-            driverChrome.FindElement(By.LinkText(" Become")).Click();
-            driverChrome.FindElement(By.Id("CBEmployee_HHRepID")).SendKeys(loginID);
-            driverChrome.FindElement(By.Id("btnAction")).Click();
-            driverChrome.FindElement(By.LinkText("Become")).Click();
+            _webDriver.FindElement(By.LinkText(" Become")).Click();
+            _webDriver.FindElement(By.Id("CBEmployee_HHRepID")).SendKeys(loginID);
+            _webDriver.FindElement(By.Id("btnAction")).Click();
+            _webDriver.FindElement(By.LinkText("Become")).Click();
         }
 
         public void TakeScreenshot(string screenshotname)
@@ -138,7 +202,7 @@ namespace UserInterfaceTesting
             Console.WriteLine("Taking screenshot");
             try
             {
-                Screenshot ss = ((ITakesScreenshot)driverChrome).GetScreenshot();
+                Screenshot ss = ((ITakesScreenshot)_webDriver).GetScreenshot();
                 ss.SaveAsFile(@"D:\AbeysSnapshots\" + screenshotname, ScreenshotImageFormat.Jpeg);
             }
             catch (Exception e)
