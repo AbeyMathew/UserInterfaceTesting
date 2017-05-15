@@ -141,7 +141,6 @@ namespace UserInterfaceTesting
             _webDriver = new InternetExplorerDriver();
             Console.WriteLine("Navigating to URL http://bosstest.careerbuilder.com/axiom/ at " + DateTime.Now.ToLongTimeString());
             _webDriver.Navigate().GoToUrl("http://bosstest.careerbuilder.com/axiom/");
-            Console.WriteLine(_webDriver.PageSource);
             //            TakeScreenshot("SeleniumTestingScreenshot0.jpg");
 
             if (AlertIsPresent()) //&& alert.Text.Contains("http://bosstest.careerbuilder.com")
@@ -153,6 +152,7 @@ namespace UserInterfaceTesting
                 //    alert.SetAuthenticationCredentials("corpappqausr", "CACruise1");
                 _alert.Accept();
             }
+            Console.WriteLine(_webDriver.PageSource);
 
             //            TakeScreenshot("SeleniumTestingScreenshot1.jpg");
             BecomeUser("lbrown");
